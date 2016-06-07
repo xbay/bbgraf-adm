@@ -14,5 +14,19 @@ AV.init({
 var query = new AV.Query('TestObject');
 query.notEqualTo('key','');
 query.find().then(function(results){
-  console.log(results);
+  results.forEach(function(item){
+    console.log(item.get('key'),item.get('price'));
+    // update(item);
+  })
 });
+
+var update  = function (item) {
+  var test = AV.Object.createWithoutData('TestObject', item.id);
+  var randomPrice = Math.random(10);
+  test.set('price', randomPrice);
+  test.save().then(function(){
+    console.log(item.key, "save success");
+  },function(err){
+    console.log(err);
+  });
+}
