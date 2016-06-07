@@ -8,11 +8,19 @@ AV.init({
 
 
 var TestObject = AV.Object.extend('TestObject');
-var testObject = new TestObject();
-testObject.save({
-	  testabc: 'abc123'
-}).then(function() {
-	  console.log('LeanCloud works!');
-}).catch(function(err) {
-	  console.log('error:' + err);
+
+var addRecord= function(key,value){
+	var testObject = new TestObject();
+	testObject.save({
+		key:value	
+	}).then(function() {
+		console.log('LeanCloud works!');
+	}).catch(function(err) {
+		console.log('error:' + err);
+	});
+}
+
+var arr = ['apple','banana','peach','cherry'];
+arr.forEach(function(item){
+	addRecord('name',item);
 });
